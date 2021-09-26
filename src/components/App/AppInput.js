@@ -30,13 +30,13 @@ const Input = styled.input`
   }
 `;
 
-function AppInput({ inputRef, label, placeholder, required }) {
+function AppInput({ inputRef, type = 'text', label, placeholder, required }) {
   return (
     <InputWrapper>
       <AppLabel>{label}:</AppLabel>
       <Input
         ref={inputRef}
-        type='text'
+        type={type}
         placeholder={placeholder}
         required={required}
       />

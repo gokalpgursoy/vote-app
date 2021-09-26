@@ -61,12 +61,14 @@ function LinkForm() {
       <FormTitle>Add New Link</FormTitle>
       <AppInput
         inputRef={linkNameInput}
+        type='text'
         label='Link Name'
         placeholder='e.g. Alphabet'
         required
       />
       <AppInput
         inputRef={linkUrlInput}
+        type='url'
         label='Link URL'
         placeholder='e.g. http://abc.xyz'
         required
