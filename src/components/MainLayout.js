@@ -8,10 +8,10 @@ const MainWrappper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items-center;
+  align-items: center;
 `;
 const ChildrenWrapper = styled.div`
-  width: 100%;
+  width: 460px;
   flex: 1;
   overflow: auto;
   padding: 32px 0;

@@ -4,6 +4,7 @@ const HeaderWrapper = styled.header`
   padding: 8px;
   border-bottom: 1px solid black;
   flex: 0 0 60px;
+  width: 100%;
 `;
 
 function Header() {

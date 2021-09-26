@@ -46,7 +46,6 @@ h4,
 h5,
 h6,
 b,
-strong,
-label {
+strong {
   font-weight: 600;
 }
