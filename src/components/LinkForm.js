@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useRef } from 'react';
 import styled from 'styled-components';
 import { addLink } from '../services/linksService';
 import AppInput from './App/AppInput';
+import AppNotify from './App/AppNotify';
 
 const Form = styled.form`
   display: flex;
@@ -26,6 +28,8 @@ const AddButton = styled.button`
 `;
 
 function LinkForm() {
+  const [isShowNotify, setIsShowNotify] = useState(false);
+
   const linkNameInput = useRef('');
   const linkUrlInput = useRef('');
 
@@ -35,7 +39,13 @@ function LinkForm() {
       name: linkNameInput.current.value,
       url: linkUrlInput.current.value,
     };
-    addLink(link).then(() => resetInputs());
+    addLink(link).then(() => {
+      setIsShowNotify(true);
+      resetInputs();
+      setTimeout(() => {
+        setIsShowNotify(false);
+      }, 1500);
+    });
   };
 
   const resetInputs = () => {
@@ -45,6 +55,9 @@ function LinkForm() {
 
   return (
     <Form onSubmit={handleFormSubmit}>
+      {isShowNotify && (
+        <AppNotify linkName={linkNameInput.current.value} isAdd></AppNotify>
+      )}
       <FormTitle>Add New Link</FormTitle>
       <AppInput
         inputRef={linkNameInput}
