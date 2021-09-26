@@ -1,16 +1,32 @@
 import styled from 'styled-components';
+import Container from './Container';
+import Header from './Header';
 
-const Container = styled.main`
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+const MainWrappper = styled.main`
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items-center;
+`;
+const ChildrenWrapper = styled.div`
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 function MainLayout({ children }) {
   return (
     <Container>
-      <h1>main</h1>
-      {children}
+      <MainWrappper>
+        <Header />
+        <ChildrenWrapper>{children}</ChildrenWrapper>
+      </MainWrappper>
     </Container>
   );
 }

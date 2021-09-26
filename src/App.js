@@ -8,16 +8,14 @@ function App() {
   return (
     <Router>
       <MainLayout>
-        <div>
-          <Switch>
-            <Route path='/add-link'>
-              <AddLink />
-            </Route>
-            <Route path='/'>
-              <Links />
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route path='/add-link'>
+            <AddLink />
+          </Route>
+          <Route path='/'>
+            <Links />
+          </Route>
+        </Switch>
       </MainLayout>
     </Router>
   );
