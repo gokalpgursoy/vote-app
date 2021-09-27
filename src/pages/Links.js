@@ -5,7 +5,12 @@ import styled from 'styled-components';
 import LinkCard from '../components/Links/LinkCard';
 import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
-import { deleteLinkById, getPaginatedLinks } from '../services/linksService';
+import Pagination from '../components/Pagination';
+import {
+  deleteLinkById,
+  fetchPaginatedLinks,
+  fetchTotalLinkCount,
+} from '../services/linksService';
 
 const Seperator = styled.div`
   width: 100%;
@@ -25,25 +30,47 @@ const PageContainer = styled.div`
 `;
 
 function Links() {
+  const pageItemCount = 5;
   const [links, setLinks] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [totalLinkCount, setTotalLinkCount] = useState(0);
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
-  const fetchPaginatedLinks = useCallback(() => {
-    getPaginatedLinks(pageNumber).then((data) => {
+  const getPaginatedLinks = useCallback(() => {
+    fetchPaginatedLinks(currentPageNumber).then((data) => {
       setLinks(data);
     });
-  }, [pageNumber]);
+  }, [currentPageNumber]);
 
-  useEffect(() => {
-    fetchPaginatedLinks(pageNumber);
+  const getTotalLinkCount = useCallback(() => {
+    fetchTotalLinkCount().then((count) => {
+      const minDataCountShouldBe = (currentPageNumber - 1) * pageItemCount + 1;
+      const isRedirectToPreviousPage =
+        currentPageNumber > 1 && count < minDataCountShouldBe;
+      if (isRedirectToPreviousPage) {
+        // after last item deleted at last page go to previous page
+        setCurrentPageNumber(currentPageNumber - 1);
+      }
+      setTotalLinkCount(count);
+    });
     return () => console.log('unmounting...');
-  }, [pageNumber, fetchPaginatedLinks]);
+  }, [currentPageNumber]);
 
-  const deleteLink = (id) => {
+  const handleDeleteLink = (id) => {
     deleteLinkById(id).then(() => {
-      fetchPaginatedLinks();
+      getPaginatedLinks();
+      getTotalLinkCount();
     });
   };
+
+  const handleClickPagination = (pageNumber) => {
+    setCurrentPageNumber(pageNumber);
+  };
+
+  useEffect(() => {
+    getPaginatedLinks();
+    getTotalLinkCount();
+    return () => console.log('unmounting...');
+  }, [getPaginatedLinks, getTotalLinkCount]);
 
   return (
     <PageWrapper>
@@ -54,8 +81,13 @@ function Links() {
       <PageContainer>
         <OrderSelect />
         {links.map((item) => (
-          <LinkCard link={item} key={item.id} handleDelete={deleteLink} />
+          <LinkCard link={item} key={item.id} handleDelete={handleDeleteLink} />
         ))}
+        <Pagination
+          totalLinkCount={totalLinkCount}
+          currentPageNumber={currentPageNumber}
+          handleClickPagination={handleClickPagination}
+        />
       </PageContainer>
     </PageWrapper>
   );
