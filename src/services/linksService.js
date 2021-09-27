@@ -27,3 +27,16 @@ export const addLink = (link) => {
     }
   });
 };
+
+export const updateLink = ({ id, voteCount }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const list = await getLinks();
+      list.find((item) => item.id === id).voteCount = voteCount;
+      localStorage.setItem(localStorageKey, JSON.stringify(list));
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};

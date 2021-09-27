@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ArrowUp, ArrowDown } from '@styled-icons/heroicons-solid';
+import { useState } from 'react';
+import { updateLink } from '../../services/linksService';
 
 const CardWrapper = styled.div`
   height: 95px;
@@ -79,10 +81,23 @@ const ArrowDownIcon = styled(ArrowDown)`
 `;
 
 function LinkCard({ link }) {
+  const [vote, setVote] = useState(link.voteCount);
+
+  const handleUpDownClick = (isUpVote) => {
+    const { id } = link;
+    const newVoteCount = isUpVote ? vote + 1 : vote - 1;
+    setVote(newVoteCount);
+    const payload = {
+      id,
+      voteCount: newVoteCount,
+    };
+    updateLink(payload);
+  };
+
   return (
     <CardWrapper>
       <VoteCountWrapper>
-        <VoteCountText>{link.voteCount}</VoteCountText>
+        <VoteCountText>{vote}</VoteCountText>
         <VoteCountSubTitle>Points</VoteCountSubTitle>
       </VoteCountWrapper>
       <VoteContent>
@@ -98,11 +113,11 @@ function LinkCard({ link }) {
           </Link>
         </LinkAddress>
         <IconsWrapper>
-          <IconButton>
+          <IconButton onClick={() => handleUpDownClick(true)}>
             <ArrowUpIcon></ArrowUpIcon>
             Up Vote
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => handleUpDownClick(false)}>
             <ArrowDownIcon></ArrowDownIcon>
             Down Vote
           </IconButton>
