@@ -11,7 +11,8 @@ const MainWrappper = styled.main`
   align-items: center;
 `;
 const ChildrenWrapper = styled.div`
-  width: 460px;
+  max-width: 370px;
+  width: 100%;
   flex: 1;
   overflow: hidden;
   padding: 32px 0;

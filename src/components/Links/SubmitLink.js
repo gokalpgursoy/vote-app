@@ -24,7 +24,7 @@ const PlusIcon = styled(Plus)`
 `;
 
 const TextWrapper = styled.span`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
   text-align: center;
   flex: 1;
