@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ArrowUp, ArrowDown } from '@styled-icons/heroicons-solid';
+import { ArrowUp, ArrowDown, MinusCircle } from '@styled-icons/heroicons-solid';
 import { useState } from 'react';
 import { updateLink } from '../../services/linksService';
+
+const DeleteIcon = styled(MinusCircle)`
+  height: 25px;
+  color: #dc0d0c;
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  border: 2px solid #cec7c7;
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 0 0px 4px #cec7c7;
+  display: none;
+  cursor: pointer;
+`;
 
 const CardWrapper = styled.div`
   height: 95px;
@@ -11,6 +25,15 @@ const CardWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 20px 0;
+  position: relative;
+  &:hover {
+    background-color: #f7f7f7;
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+  }
+  &:hover ${DeleteIcon} {
+    display: block;
+  }
 `;
 
 const VoteCountWrapper = styled.div`
@@ -24,6 +47,7 @@ const VoteCountWrapper = styled.div`
   justify-content: flex-start;
   border: 1px solid #a9a9a9;
   border-radius: 5px;
+  position: relative;
 `;
 
 const VoteCountText = styled.span`
@@ -80,7 +104,7 @@ const ArrowDownIcon = styled(ArrowDown)`
   height: 15px;
 `;
 
-function LinkCard({ link }) {
+function LinkCard({ link, handleDelete }) {
   const [vote, setVote] = useState(link.voteCount);
 
   const handleUpDownClick = (isUpVote) => {
@@ -123,6 +147,7 @@ function LinkCard({ link }) {
           </IconButton>
         </IconsWrapper>
       </VoteContent>
+      <DeleteIcon onClick={() => handleDelete(link.id)} />
     </CardWrapper>
   );
 }

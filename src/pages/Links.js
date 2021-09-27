@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import LinkCard from '../components/Links/LinkCard';
 import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
-import { getLinks } from '../services/linksService';
+import { deleteLinkById, getPaginatedLinks } from '../services/linksService';
 
 const Seperator = styled.div`
   width: 100%;
@@ -25,11 +26,24 @@ const PageContainer = styled.div`
 
 function Links() {
   const [links, setLinks] = useState([]);
-  useEffect(() => {
-    getLinks().then((data) => {
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const fetchPaginatedLinks = useCallback(() => {
+    getPaginatedLinks(pageNumber).then((data) => {
       setLinks(data);
     });
-  }, []);
+  }, [pageNumber]);
+
+  useEffect(() => {
+    fetchPaginatedLinks(pageNumber);
+    return () => console.log('unmounting...');
+  }, [pageNumber, fetchPaginatedLinks]);
+
+  const deleteLink = (id) => {
+    deleteLinkById(id).then(() => {
+      fetchPaginatedLinks();
+    });
+  };
 
   return (
     <PageWrapper>
@@ -40,7 +54,7 @@ function Links() {
       <PageContainer>
         <OrderSelect />
         {links.map((item) => (
-          <LinkCard link={item} key={item.id} />
+          <LinkCard link={item} key={item.id} handleDelete={deleteLink} />
         ))}
       </PageContainer>
     </PageWrapper>
