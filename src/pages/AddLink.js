@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ArrowNarrowLeft } from '@styled-icons/heroicons-solid';
 
-import LinkForm from '../components/LinkForm';
+import LinkForm from '../components/AddLink/LinkForm';
 import AppLink from '../components/App/AppLink';
 
 const PageWrapper = styled.div`

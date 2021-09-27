@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useRef } from 'react';
 import styled from 'styled-components';
-import { addLink } from '../services/linksService';
-import AppInput from './App/AppInput';
-import AppNotify from './App/AppNotify';
+import { addLink } from '../../services/linksService';
+import AppInput from '../App/AppInput';
+import AppNotify from '../App/AppNotify';
 
 const Form = styled.form`
   display: flex;

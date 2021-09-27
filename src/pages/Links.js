@@ -1,5 +1,7 @@
+import SubmitLink from '../components/Links/SubmitLink';
+
 function Links() {
-  return <h1>Link List</h1>;
+  return <SubmitLink />;
 }
 
 export default Links;
