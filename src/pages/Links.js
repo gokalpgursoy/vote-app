@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
 
 const Seperator = styled.div`
@@ -25,6 +26,9 @@ function Links() {
         <SubmitLink />
       </PageContainer>
       <Seperator />
+      <PageContainer>
+        <OrderSelect />
+      </PageContainer>
     </PageWrapper>
   );
 }
