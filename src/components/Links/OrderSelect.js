@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 35px;
   position: relative;
+  margin: 0 0 20px 0;
 `;
 
 const Select = styled.select`

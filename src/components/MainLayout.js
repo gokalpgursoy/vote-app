@@ -3,7 +3,7 @@ import Container from './Container';
 import Header from './Header';
 
 const MainWrappper = styled.main`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ const MainWrappper = styled.main`
 const ChildrenWrapper = styled.div`
   width: 460px;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
   padding: 32px 0;
   display: flex;
   justify-content: center;

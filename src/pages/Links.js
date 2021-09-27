@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import LinkCard from '../components/Links/LinkCard';
 import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
+import { getLinks } from '../services/linksService';
 
 const Seperator = styled.div`
   width: 100%;
@@ -20,6 +24,13 @@ const PageContainer = styled.div`
 `;
 
 function Links() {
+  const [links, setLinks] = useState([]);
+  useEffect(() => {
+    getLinks().then((data) => {
+      setLinks(data);
+    });
+  }, []);
+
   return (
     <PageWrapper>
       <PageContainer>
@@ -28,6 +39,9 @@ function Links() {
       <Seperator />
       <PageContainer>
         <OrderSelect />
+        {links.map((item) => (
+          <LinkCard link={item} key={item.id} />
+        ))}
       </PageContainer>
     </PageWrapper>
   );
