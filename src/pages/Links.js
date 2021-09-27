@@ -6,6 +6,7 @@ import LinkCard from '../components/Links/LinkCard';
 import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
 import Pagination from '../components/Pagination';
+import { pageSizeConstant } from '../helpers/contants';
 import {
   deleteLinkById,
   fetchPaginatedLinks,
@@ -30,7 +31,6 @@ const PageContainer = styled.div`
 `;
 
 function Links() {
-  const pageItemCount = 5;
   const [links, setLinks] = useState([]);
   const [totalLinkCount, setTotalLinkCount] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
@@ -43,7 +43,8 @@ function Links() {
 
   const getTotalLinkCount = useCallback(() => {
     fetchTotalLinkCount().then((count) => {
-      const minDataCountShouldBe = (currentPageNumber - 1) * pageItemCount + 1;
+      const minDataCountShouldBe =
+        (currentPageNumber - 1) * pageSizeConstant + 1;
       const isRedirectToPreviousPage =
         currentPageNumber > 1 && count < minDataCountShouldBe;
       if (isRedirectToPreviousPage) {
@@ -79,15 +80,23 @@ function Links() {
       </PageContainer>
       <Seperator />
       <PageContainer>
-        <OrderSelect />
+        {!!totalLinkCount && <OrderSelect />}
+
         {links.map((item) => (
-          <LinkCard link={item} key={item.id} handleDelete={handleDeleteLink} />
+          <LinkCard
+            link={item}
+            key={item.id}
+            handleDelete={handleDeleteLink}
+            getPaginatedLinks={getPaginatedLinks}
+          />
         ))}
-        <Pagination
-          totalLinkCount={totalLinkCount}
-          currentPageNumber={currentPageNumber}
-          handleClickPagination={handleClickPagination}
-        />
+        {!!totalLinkCount && (
+          <Pagination
+            totalLinkCount={totalLinkCount}
+            currentPageNumber={currentPageNumber}
+            handleClickPagination={handleClickPagination}
+          />
+        )}
       </PageContainer>
     </PageWrapper>
   );

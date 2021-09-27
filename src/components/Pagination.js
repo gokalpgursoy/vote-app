@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ChevronLeft, ChevronRight } from '@styled-icons/heroicons-solid';
+import { pageSizeConstant } from '../helpers/contants';
 
 const PaginationWrapper = styled.div`
   display: flex;
@@ -34,16 +35,15 @@ function Pagination({
   currentPageNumber,
   handleClickPagination,
 }) {
-  const paginationItemCount = 5;
-  const totalPageCount = Math.ceil(totalLinkCount / paginationItemCount);
+  const totalPageCount = Math.ceil(totalLinkCount / pageSizeConstant);
 
   const paginationGroupIndex = Math.floor(
-    (currentPageNumber - 1) / paginationItemCount
+    (currentPageNumber - 1) / pageSizeConstant
   );
 
   const pages = [];
-  for (let i = 1; i <= paginationItemCount; i++) {
-    const pageNumber = i + paginationItemCount * paginationGroupIndex;
+  for (let i = 1; i <= pageSizeConstant; i++) {
+    const pageNumber = i + pageSizeConstant * paginationGroupIndex;
     if (pageNumber <= totalPageCount) {
       pages.push(pageNumber);
     } else {

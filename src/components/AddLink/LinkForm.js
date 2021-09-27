@@ -37,6 +37,7 @@ function LinkForm() {
     event.preventDefault();
     const link = {
       id: Date.now(),
+      modifiedDate: new Date(),
       name: linkNameInput.current.value,
       url: linkUrlInput.current.value,
     };

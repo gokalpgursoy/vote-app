@@ -104,7 +104,7 @@ const ArrowDownIcon = styled(ArrowDown)`
   height: 15px;
 `;
 
-function LinkCard({ link, handleDelete }) {
+function LinkCard({ link, handleDelete, getPaginatedLinks }) {
   const [vote, setVote] = useState(link.voteCount);
 
   const handleUpDownClick = (isUpVote) => {
@@ -116,6 +116,7 @@ function LinkCard({ link, handleDelete }) {
       voteCount: newVoteCount,
     };
     updateLink(payload);
+    getPaginatedLinks();
   };
 
   return (
