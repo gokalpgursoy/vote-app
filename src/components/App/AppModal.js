@@ -2,7 +2,7 @@ import { X } from '@styled-icons/heroicons-solid';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
