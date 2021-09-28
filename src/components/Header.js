@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.header`
@@ -30,7 +31,9 @@ const SubTitle = styled.h2`
 function Header() {
   return (
     <HeaderWrapper>
-      <Brand>Brand</Brand>
+      <Link to='/'>
+        <Brand>Brand</Brand>
+      </Link>
       <div>
         <Title>Link</Title>
         <SubTitle>VOTE Challenge</SubTitle>
