@@ -13,7 +13,8 @@ const HeaderWrapper = styled.header`
 
 const Brand = styled.h2`
   text-transform: lowercase;
-  font-size: 24px;
+  font-size: 26px;
+  letter-spacing: 4px;
 `;
 
 const Title = styled.h2`
