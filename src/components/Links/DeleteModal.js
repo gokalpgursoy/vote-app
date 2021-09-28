@@ -12,7 +12,6 @@ const SubTitle = styled.h2`
   font-size: 28px;
   font-weight: 900;
   white-space: normal;
-  overflow: hidden;
   text-overflow: ellipsis;
   width: 300px;
   text-align: center;
