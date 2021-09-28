@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can see the source code of LinkVOTE Challenge here developed by me. Also if you would like to see directly how it works please [click here](https://vote-app-weld.vercel.app/)
+
+![Homepage](public/readme/preview.png)
+
+It is a link listing page. Also if you want to give a vote for links you can click Up Vote or Down Vote buttons.
+
+You can sort links by Vote Count ascending or descending. If there is no selected sort option you will see links sorted by created date as descending.
+
+At first glance you can see maximum 5 links. If you want to see more links you can use the pagination section.
 
 ## Available Scripts
 
