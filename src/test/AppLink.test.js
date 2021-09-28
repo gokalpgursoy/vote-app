@@ -2,13 +2,15 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route } from 'react-router-dom';
 
-import SubmitLink from '../components/Links/SubmitLink';
+import AppLink from '../components/App/AppLink';
 
-it('should be redirect /add-link page after click Submit a Link button', () => {
+it('should be redirect by href prop after click Applink', () => {
   let testLocation;
+  const text = 'Return to List';
+  const href = '/';
   render(
-    <MemoryRouter initialEntries={['/']}>
-      <SubmitLink />
+    <MemoryRouter initialEntries={['/add-link']}>
+      <AppLink text={text} href={href} />
       <Route
         path='*'
         render={({ location }) => {
@@ -20,8 +22,8 @@ it('should be redirect /add-link page after click Submit a Link button', () => {
   );
 
   act(() => {
-    const submitLinkButton = screen.getByText('SUBMIT A LINK');
-    userEvent.click(submitLinkButton);
+    const link = screen.getByText(text);
+    userEvent.click(link);
   });
-  expect(testLocation.pathname).toBe('/add-link');
+  expect(testLocation.pathname).toBe(href);
 });
