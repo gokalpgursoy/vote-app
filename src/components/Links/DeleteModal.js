@@ -11,6 +11,10 @@ const Title = styled.h3`
 const SubTitle = styled.h2`
   font-size: 28px;
   font-weight: 900;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 300px;
 `;
 
 function DeleteModal({ linkName, handleDeleteLink, handleCancelClick }) {
@@ -21,7 +25,7 @@ function DeleteModal({ linkName, handleDeleteLink, handleCancelClick }) {
       handleCancelClick={() => handleCancelClick()}
     >
       <Title>Do you want to remove:</Title>
-      <SubTitle>{linkName}</SubTitle>
+      <SubTitle title={linkName}>{linkName}</SubTitle>
     </AppModal>
   );
 }
