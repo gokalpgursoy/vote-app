@@ -1,23 +1,23 @@
+import { orderBy } from 'lodash';
 import { pageSizeConstant } from '../helpers/contants';
 
 const localStorageKey = 'link-list';
 
-export const fetchAllLinks = () => {
+export const fetchAllLinks = (orderType = '') => {
   return new Promise((resolve, reject) => {
     try {
       let linkListItem = localStorage.getItem(localStorageKey);
-      const links = JSON.parse(linkListItem) || [];
-      const sortedList = links.sort((a, b) => {
-        if (a.voteCount !== b.voteCount) {
-          return b.voteCount - a.voteCount;
-        } else {
-          return (
-            parseFloat(new Date(b.modifiedDate).getTime()) -
-            parseFloat(new Date(a.modifiedDate).getTime())
-          );
-        }
-      });
-      resolve(sortedList);
+      let list = JSON.parse(linkListItem) || [];
+      if (orderType) {
+        list = orderBy(
+          list,
+          ['voteCount', 'modifiedDate'],
+          [orderType, 'desc']
+        );
+      } else {
+        list = orderBy(list, ['modifiedDate'], ['desc']);
+      }
+      resolve(list);
     } catch (error) {
       reject(error);
     }
@@ -35,12 +35,13 @@ export const fetchTotalLinkCount = () => {
   });
 };
 
-export const fetchPaginatedLinks = (pageNumber) => {
+export const fetchPaginatedLinks = (pageNumber, orderType) => {
   return new Promise(async (resolve, reject) => {
     try {
       const startIndex = (pageNumber - 1) * pageSizeConstant;
       const endIndex = startIndex + pageSizeConstant;
-      const list = await fetchAllLinks();
+      const list = await fetchAllLinks(orderType);
+
       resolve(list.slice(startIndex, endIndex));
     } catch (error) {
       reject(error);

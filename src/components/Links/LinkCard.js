@@ -61,7 +61,8 @@ const VoteCountSubTitle = styled.span`
 `;
 
 const VoteContent = styled.div`
-  flex: 1;
+  flex: 0 0 245px;
+  overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -71,12 +72,18 @@ const VoteContent = styled.div`
 const LinkName = styled.span`
   font-size: 18px;
   font-weight: bold;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const LinkAddress = styled.span`
   font-size: 16px;
   color: #8b8b8b;
   font-weight: 200;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const IconsWrapper = styled.div`
@@ -107,7 +114,7 @@ const ArrowDownIcon = styled(ArrowDown)`
 function LinkCard({ link, handleClickDeleteIcon, getPaginatedLinks }) {
   const [vote, setVote] = useState(link.voteCount);
 
-  const handleUpDownClick = (isUpVote) => {
+  const handleUpDownClick = async (isUpVote) => {
     const { id } = link;
     const newVoteCount = isUpVote ? vote + 1 : vote - 1;
     setVote(newVoteCount);
@@ -115,7 +122,7 @@ function LinkCard({ link, handleClickDeleteIcon, getPaginatedLinks }) {
       id,
       voteCount: newVoteCount,
     };
-    updateLink(payload);
+    await updateLink(payload);
     getPaginatedLinks();
   };
 

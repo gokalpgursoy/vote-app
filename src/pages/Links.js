@@ -46,12 +46,13 @@ function Links() {
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
   const [selectedLink, setSelectedLink] = useState({});
   const [isShowNotify, setIsShowNotify] = useState(false);
+  const [orderType, setOrderType] = useState('');
 
   const getPaginatedLinks = useCallback(() => {
-    fetchPaginatedLinks(currentPageNumber).then((data) => {
+    fetchPaginatedLinks(currentPageNumber, orderType).then((data) => {
       setLinks(data);
     });
-  }, [currentPageNumber]);
+  }, [currentPageNumber, orderType]);
 
   const getTotalLinkCount = useCallback(() => {
     fetchTotalLinkCount().then((count) => {
@@ -96,6 +97,11 @@ function Links() {
     setCurrentPageNumber(pageNumber);
   };
 
+  const handleOrderTypeChange = (e) => {
+    const changedOrderType = e.target.value;
+    setOrderType(changedOrderType);
+  };
+
   useEffect(() => {
     getPaginatedLinks();
     getTotalLinkCount();
@@ -109,7 +115,9 @@ function Links() {
       </PageContainer>
       <Seperator />
       <PageContainer>
-        {!!totalLinkCount && <OrderSelect />}
+        {!!totalLinkCount && (
+          <OrderSelect handleOrderTypeChange={handleOrderTypeChange} />
+        )}
         <CardsWrapper>
           {links.map((item) => (
             <LinkCard

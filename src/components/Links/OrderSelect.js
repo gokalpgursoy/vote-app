@@ -24,13 +24,13 @@ const Select = styled.select`
   background-repeat: no-repeat;
 `;
 
-function OrderSelect() {
+function OrderSelect({ handleOrderTypeChange }) {
   return (
     <Wrapper>
-      <Select placeholder='Order By' defaultValue=''>
+      <Select defaultValue='' onChange={(e) => handleOrderTypeChange(e)}>
         <option value=''>Order By</option>
-        <option value='most'>{`Most Voted(Z -> A)`}</option>
-        <option value='less'>{`Less Voted(A -> Z)`}</option>
+        <option value='desc'>{`Most Voted(Z -> A)`}</option>
+        <option value='asc'>{`Less Voted(A -> Z)`}</option>
       </Select>
     </Wrapper>
   );
