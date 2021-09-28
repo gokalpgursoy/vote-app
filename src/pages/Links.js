@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import AppNotify from '../components/App/AppNotify';
+import DeleteModal from '../components/Links/DeleteModal';
 import LinkCard from '../components/Links/LinkCard';
 import OrderSelect from '../components/Links/OrderSelect';
 import SubmitLink from '../components/Links/SubmitLink';
 import Pagination from '../components/Pagination';
+
 import { pageSizeConstant } from '../helpers/contants';
 import {
   deleteLinkById,
@@ -28,12 +31,21 @@ const PageWrapper = styled.div`
 
 const PageContainer = styled.div`
   padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const CardsWrapper = styled.div`
+  flex: 1 0 300px;
 `;
 
 function Links() {
   const [links, setLinks] = useState([]);
   const [totalLinkCount, setTotalLinkCount] = useState(0);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+  const [selectedLink, setSelectedLink] = useState({});
+  const [isShowNotify, setIsShowNotify] = useState(false);
 
   const getPaginatedLinks = useCallback(() => {
     fetchPaginatedLinks(currentPageNumber).then((data) => {
@@ -56,11 +68,28 @@ function Links() {
     return () => console.log('unmounting...');
   }, [currentPageNumber]);
 
-  const handleDeleteLink = (id) => {
+  const handleDeleteLink = () => {
+    const { id } = selectedLink;
     deleteLinkById(id).then(() => {
+      setIsShowDeleteModal(false);
+      setIsShowNotify(true);
       getPaginatedLinks();
       getTotalLinkCount();
+      setTimeout(() => {
+        setIsShowNotify(false);
+        setSelectedLink({});
+      }, 1500);
     });
+  };
+
+  const showDeleteModal = (link) => {
+    setSelectedLink(link);
+    setIsShowDeleteModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedLink({});
+    setIsShowDeleteModal(false);
   };
 
   const handleClickPagination = (pageNumber) => {
@@ -81,15 +110,16 @@ function Links() {
       <Seperator />
       <PageContainer>
         {!!totalLinkCount && <OrderSelect />}
-
-        {links.map((item) => (
-          <LinkCard
-            link={item}
-            key={item.id}
-            handleDelete={handleDeleteLink}
-            getPaginatedLinks={getPaginatedLinks}
-          />
-        ))}
+        <CardsWrapper>
+          {links.map((item) => (
+            <LinkCard
+              link={item}
+              key={item.id}
+              handleClickDeleteIcon={showDeleteModal}
+              getPaginatedLinks={getPaginatedLinks}
+            />
+          ))}
+        </CardsWrapper>
         {!!totalLinkCount && (
           <Pagination
             totalLinkCount={totalLinkCount}
@@ -98,6 +128,16 @@ function Links() {
           />
         )}
       </PageContainer>
+      {isShowDeleteModal && (
+        <DeleteModal
+          linkName={selectedLink.name}
+          handleDeleteLink={handleDeleteLink}
+          handleCancelClick={handleCloseModal}
+        />
+      )}
+      {isShowNotify && (
+        <AppNotify linkName={selectedLink.name} isAdd={false}></AppNotify>
+      )}
     </PageWrapper>
   );
 }

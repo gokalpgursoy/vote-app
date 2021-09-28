@@ -5,14 +5,13 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 35px;
   position: relative;
-  margin: 0 0 20px 0;
+  flex: 0 0 40px;
 `;
 
 const Select = styled.select`
   flex: 0 0 205px;
-  height: 100%;
+  height: 35px;
   background-color: #f2f2f2;
   color: black;
   padding: 0 10px;

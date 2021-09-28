@@ -104,7 +104,7 @@ const ArrowDownIcon = styled(ArrowDown)`
   height: 15px;
 `;
 
-function LinkCard({ link, handleDelete, getPaginatedLinks }) {
+function LinkCard({ link, handleClickDeleteIcon, getPaginatedLinks }) {
   const [vote, setVote] = useState(link.voteCount);
 
   const handleUpDownClick = (isUpVote) => {
@@ -148,7 +148,7 @@ function LinkCard({ link, handleDelete, getPaginatedLinks }) {
           </IconButton>
         </IconsWrapper>
       </VoteContent>
-      <DeleteIcon onClick={() => handleDelete(link.id)} />
+      <DeleteIcon onClick={() => handleClickDeleteIcon(link)} />
     </CardWrapper>
   );
 }
