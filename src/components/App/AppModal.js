@@ -13,6 +13,7 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 1;
   transition: opacity 0.2s ease;
+  z-index: 1;
 `;
 const Modal = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const Modal = styled.div`
   background-color: #fff;
   border-radius: 3px;
   border: 1px solid #696969;
+  z-index: 2;
 `;
 
 const ModalHeader = styled.div`
@@ -52,7 +54,8 @@ const ModalFooter = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 50px;
+  gap: 30px;
+  padding: 0 10px;
 `;
 
 const CloseIcon = styled(X)`
@@ -62,7 +65,7 @@ const CloseIcon = styled(X)`
 
 const Button = styled.button`
   width: 150px;
-  heigth: 50px;
+  height: 50px;
   background-color: black;
   color: white;
   border-radius: 24px;
@@ -76,8 +79,15 @@ const Button = styled.button`
 `;
 
 function AppModal({ title, children, handleOkClick, handleCancelClick }) {
+  const handleClickBackground = (e) => {
+    e.stopPropagation();
+    if (e.target.id === 'app-modal-wrapper') {
+      handleCancelClick();
+    }
+  };
+
   return (
-    <ModalWrapper>
+    <ModalWrapper id='app-modal-wrapper' onClick={handleClickBackground}>
       <Modal>
         <ModalHeader>
           <span>{title}</span>

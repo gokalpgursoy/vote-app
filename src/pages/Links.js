@@ -36,7 +36,7 @@ const PageContainer = styled.div`
 `;
 
 const CardsWrapper = styled.div`
-  flex: 1 0 300px;
+  flex: 1 0 360px;
 `;
 
 function Links() {
