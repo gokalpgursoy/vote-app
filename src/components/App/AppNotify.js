@@ -23,12 +23,15 @@ const LinkName = styled.span`
   display: block;
   text-transform: uppercase;
   font-weight: bold;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 function AppNotify({ linkName, isAdd }) {
   return (
     <NotifyWrapper>
-      <LinkName>{linkName}</LinkName>
+      <LinkName title={linkName}>{linkName}</LinkName>
       <span> {isAdd ? 'added.' : 'removed.'}</span>
     </NotifyWrapper>
   );
