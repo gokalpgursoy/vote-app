@@ -4,7 +4,7 @@ const NotifyWrapper = styled.div`
   position: absolute;
   top: 20px;
   z-index: 1;
-  width: 460px;
+  width: 370px;
   height: 65px;
   background-color: #ddf9d2;
   color: #5aad5a;
