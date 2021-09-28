@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const NotifyWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 20px;
   z-index: 1;
   width: 370px;

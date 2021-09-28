@@ -15,6 +15,7 @@ const SubTitle = styled.h2`
   overflow: hidden;
   text-overflow: ellipsis;
   width: 300px;
+  text-align: center;
 `;
 
 function DeleteModal({ linkName, handleDeleteLink, handleCancelClick }) {
